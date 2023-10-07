@@ -1,4 +1,11 @@
-import { validationForm, saveData, selectData, selectAllData } from "./Controller/Latinhas.js";
+import {
+  validationForm,
+  saveData,
+  selectData,
+  selectAllData,
+  updateData,
+  deleteData,
+} from "./Controller/Latinhas.js";
 import express from "express";
 
 const app = express();
@@ -10,7 +17,7 @@ app
   .get(async (req, res) => {
     if (req.params.id) {
       var latinhas = await selectData(req.params.id);
-    }else{
+    } else {
       var latinhas = await selectAllData();
     }
     res.json(latinhas);
@@ -22,6 +29,27 @@ app
       success: true,
       mensagem: "Os dados foram inserindos com sucesso!",
       data: req.body,
+    });
+  })
+  .put((req, res) => {
+    if (!req.params.id) {
+      throw "Falta o parâmetro ID na rota!";
+    }
+    updateData(req.body, req.params.id);
+    res.status(200).send({
+      success: true,
+      mensagem: "Os dados foram atualizados com sucesso!",
+      data: req.body,
+    });
+  })
+  .delete((req, res) => {
+    if (!req.params.id) {
+      throw "Falta o parâmetro ID na rota!";
+    }
+    deleteData(req.params.id);
+    res.status(200).send({
+      success: true,
+      mensagem: "Os dados foram deletados com sucesso!",
     });
   });
 
