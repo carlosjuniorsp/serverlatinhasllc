@@ -1,6 +1,20 @@
 import { openDb } from "../configDB.js";
 
 /**
+ * form validation execution
+ * @param {object} form
+ */
+export function validationForm(form) {
+  if (!form.sku) {
+    throw "O campo SKU não pode ficar vazio";
+  } else if (!form.descricao) {
+    throw "O campo DESCRIÇÃO não pode ficar vazio";
+  } else if (!form.total) {
+    throw "O campo TOTAL  não pode ficar vazio";
+  }
+}
+
+/**
  * Insert data from table latinhas
  * @param {object} data
  */
@@ -15,12 +29,24 @@ export async function saveData(data) {
 }
 
 /**
- * Select data from table latinhas
+ * Select all data from table latinhas
+ */
+export async function selectAllData() {
+  openDb();
+  return openDb().then((database) => {
+    return database.all("SELECT * FROM latinhas").then((res) => res);
+  });
+}
+
+/**
+ * Search for data by id
  * @param {integer} id
  */
 export async function selectData(id) {
   openDb();
   return openDb().then((database) => {
-    return database.all("SELECT * FROM latinhas").then((res) => res);
+    return database
+      .get("SELECT * FROM latinhas WHERE id=?", id)
+      .then((res) => res);
   });
 }
