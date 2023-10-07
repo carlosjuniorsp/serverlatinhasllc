@@ -7,10 +7,16 @@ import { openDb } from "../configDB.js";
 export function validationForm(form) {
   if (!form.sku) {
     throw "O campo SKU não pode ficar vazio";
-  } else if (!form.descricao) {
-    throw "O campo DESCRIÇÃO não pode ficar vazio";
-  } else if (!form.total) {
-    throw "O campo TOTAL  não pode ficar vazio";
+  } else if (!form.total_plan) {
+    throw "O campo TOTAL PLAN não pode ficar vazio";
+  } else if (!form.total_prod) {
+    throw "O campo TOTAL PROD não pode ficar vazio";
+  } else if (!form.period_of) {
+    throw "O campo PERÍODO INICIAL não pode ficar vazio";
+  } else if (!form.period_until) {
+    throw "O campo PERÍODO FINAL não pode ficar vazio";
+  } else if (!form.status) {
+    throw "O campo STATUS  não pode ficar vazio";
   }
 }
 
@@ -22,8 +28,15 @@ export async function saveData(data) {
   openDb();
   openDb().then((database) => {
     database.run(
-      "INSERT INTO latinhas (sku, descricao, total) VALUES (?,?,?)",
-      [data.sku, data.descricao, data.total]
+      "INSERT INTO latinhas (sku, total_plan, total_prod, period_of,period_until, status) VALUES (?,?,?,?,?,?)",
+      [
+        data.sku,
+        data.total_plan,
+        data.total_prod,
+        data.period_of,
+        data.period_until,
+        data.status
+      ]
     );
   });
 }
@@ -59,23 +72,27 @@ export async function selectData(id) {
 export async function updateData(data, id) {
   openDb();
   openDb().then((database) => {
-    database.run("UPDATE latinhas SET sku=?, descricao=?, total=? WHERE id=?", [
-      data.sku,
-      data.descricao,
-      data.total,
-      id,
-    ]);
+    database.run(
+      "UPDATE latinhas SET sku=?, total_plan=?, total_prod=?, period_of=?, period_until=?, status=? WHERE id=?",
+      [
+        data.sku,
+        data.total_plan,
+        data.total_prod,
+        data.period_of,
+        data.period_until,
+        data.status,
+        id,
+      ]
+    );
   });
 }
-  /**
+/**
  * Delete for data by id
  * @param {integer} id
  */
 export async function deleteData(id) {
-    openDb();
-    openDb().then((database) => {
-      database.run("DELETE FROM latinhas WHERE id=?", [
-        id,
-      ]);
-    });
+  openDb();
+  openDb().then((database) => {
+    database.run("DELETE FROM latinhas WHERE id=?", [id]);
+  });
 }
