@@ -15,6 +15,7 @@ app.use(express.urlencoded({ extended: true }));
 app
   .route("/latinhas/:id?")
   .get(async (req, res) => {
+    res.header("Access-Control-Allow-Origin", "*");
     if (req.params.id) {
       var latinhas = await selectData(req.params.id);
     } else {
