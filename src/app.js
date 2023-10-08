@@ -1,5 +1,4 @@
 import {
-  validationForm,
   saveData,
   selectData,
   selectAllData,
@@ -26,11 +25,10 @@ app
     res.json(latinhas);
   })
   .post((req, res) => {
-    validationForm(req.body);
     saveData(req.body);
     res.status(200).send({
       success: true,
-      mensagem: "Os dados foram inserindos com sucesso!",
+      message: "Os dados foram inserindos com sucesso!",
       data: req.body,
     });
   })
@@ -41,7 +39,7 @@ app
     updateData(req.body, req.params.id);
     res.status(200).send({
       success: true,
-      mensagem: "Os dados foram atualizados com sucesso!",
+      message: "Os dados foram atualizados com sucesso!",
       data: req.body,
     });
   })
@@ -52,7 +50,7 @@ app
     deleteData(req.params.id);
     res.status(200).send({
       success: true,
-      mensagem: "Os dados foram deletados com sucesso!",
+      message: "Os dados foram deletados com sucesso!",
     });
   });
 

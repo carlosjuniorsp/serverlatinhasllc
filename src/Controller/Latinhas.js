@@ -1,26 +1,6 @@
 import { openDb } from "../configDB.js";
 
 /**
- * form validation execution
- * @param {object} form
- */
-export function validationForm(form) {
-  if (!form.sku) {
-    throw "O campo SKU não pode ficar vazio";
-  } else if (!form.total_plan) {
-    throw "O campo TOTAL PLAN não pode ficar vazio";
-  } else if (!form.total_prod) {
-    throw "O campo TOTAL PROD não pode ficar vazio";
-  } else if (!form.period_of) {
-    throw "O campo PERÍODO INICIAL não pode ficar vazio";
-  } else if (!form.period_until) {
-    throw "O campo PERÍODO FINAL não pode ficar vazio";
-  } else if (!form.status) {
-    throw "O campo STATUS  não pode ficar vazio";
-  }
-}
-
-/**
  * Insert data from table latinhas
  * @param {object} data
  */
@@ -47,7 +27,7 @@ export async function saveData(data) {
 export async function selectAllData() {
   openDb();
   return openDb().then((database) => {
-    return database.all("SELECT * FROM latinhas").then((res) => res);
+    return database.all("SELECT * FROM latinhas ORDER BY id DESC").then((res) => res);
   });
 }
 
