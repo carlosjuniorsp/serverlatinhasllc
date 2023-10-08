@@ -17,7 +17,7 @@ app
   .route("/latinhas/:id?")
   .get(async (req, res) => {
     res.header("Access-Control-Allow-Origin", "*");
-    if (req.params.id) {title: "sucesso"
+    if (req.params.id) {
       var latinhas = await selectData(req.params.id);
     } else {
       var latinhas = await selectAllData();
@@ -30,11 +30,11 @@ app
       res.status(201).send({
         title: "error",
         success: false,
-        message: "O campo PERÍODO ATÉ  não pode ser menor do que o PERÍODO DE",
+        message: "Insira as datas de forma corretas!",
       });
     }
     res.status(200).send({
-      title: "sucesso",
+      title: "Sucesso",
       success: true,
       message: "Os dados foram inserindos com sucesso!",
       data: req.body,
@@ -48,12 +48,12 @@ app
       res.status(201).send({
         title: "error",
         success: false,
-        message: "O campo PERÍODO ATÉ  não pode ser menor do que o PERÍODO DE",
+        message: "Insira as datas de forma corretas!",
       });
     }
-
     updateData(req.body, req.params.id);
     res.status(200).send({
+      title: "Sucesso",
       success: true,
       message: "Os dados foram atualizados com sucesso!",
       data: req.body,
