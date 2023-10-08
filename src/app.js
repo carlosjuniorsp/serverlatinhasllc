@@ -17,7 +17,7 @@ app
   .route("/latinhas/:id?")
   .get(async (req, res) => {
     res.header("Access-Control-Allow-Origin", "*");
-    if (req.params.id) {
+    if (req.params.id) {title: "sucesso"
       var latinhas = await selectData(req.params.id);
     } else {
       var latinhas = await selectAllData();
@@ -34,7 +34,7 @@ app
       });
     }
     res.status(200).send({
-      title: "success",
+      title: "sucesso",
       success: true,
       message: "Os dados foram inserindos com sucesso!",
       data: req.body,
