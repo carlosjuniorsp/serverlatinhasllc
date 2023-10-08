@@ -26,7 +26,15 @@ app
   })
   .post((req, res) => {
     saveData(req.body);
+    if (req.body.period_until < req.body.period_of) {
+      res.status(201).send({
+        title: "error",
+        success: false,
+        message: "O campo PERÍODO ATÉ  não pode ser menor do que o PERÍODO DE",
+      });
+    }
     res.status(200).send({
+      title: "success",
       success: true,
       message: "Os dados foram inserindos com sucesso!",
       data: req.body,
@@ -36,6 +44,14 @@ app
     if (!req.params.id) {
       throw "Falta o parâmetro ID na rota!";
     }
+    if (req.body.period_until < req.body.period_of) {
+      res.status(201).send({
+        title: "error",
+        success: false,
+        message: "O campo PERÍODO ATÉ  não pode ser menor do que o PERÍODO DE",
+      });
+    }
+
     updateData(req.body, req.params.id);
     res.status(200).send({
       success: true,

@@ -15,9 +15,9 @@ export async function saveData(data) {
         data.total_prod,
         data.period_of,
         data.period_until,
-        data.status
+        data.status,
       ]
-    );
+    ).then((res) => res);
   });
 }
 
@@ -27,7 +27,9 @@ export async function saveData(data) {
 export async function selectAllData() {
   openDb();
   return openDb().then((database) => {
-    return database.all("SELECT * FROM latinhas ORDER BY id DESC").then((res) => res);
+    return database
+      .all("SELECT * FROM latinhas ORDER BY id DESC")
+      .then((res) => res);
   });
 }
 
